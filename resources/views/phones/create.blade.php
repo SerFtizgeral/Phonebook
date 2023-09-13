@@ -57,82 +57,112 @@
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         border: 1px solid #ccc; /* Add this line to add a border */
-    }
-    .input-container {
-        border: 1px solid #ccc; /* Add this line to add a border */
+        }
+        .input-container {
+            border: 1px solid #ccc; /* Add this line to add a border */
+            padding: 10px;
+            border-radius: 3px;
+        }
+        .error-container {
+        max-width: 200px;
+        margin: 0 auto;
+        text-align: center;
         padding: 10px;
-        border-radius: 3px;
-    }
-    .error-container {
-    max-width: 200px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 10px;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    color: #721c24;
-}
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        color: #721c24;
+       }
 
-.error-container ul {
-    list-style: none;
-    padding-left: 0;
-}
+        .error-container ul {
+            list-style: none;
+            padding-left: 0;
+        }
 
-.error-container li {
-    margin-bottom: 5px;
-}
+        .error-container li {
+            margin-bottom: 5px;
+        }
 
-
-
-        
     </style>
 </head>
+
+
+
 <body>
+
+
     <h1>Add Contacts</h1>
 
-    @if ($errors->any())
-<div class="error-container">
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+
+    <form method="post" action="{{ route('phone.store') }}" enctype="multipart/form-data">
+    @csrf
+    @method('post')
+    <div>
+        <label for="fname">First Name</label>
+        <input type="text" name="fname" id="fname" placeholder="First Name" />
+        @if ($errors->has('fname'))
+            <p class="error">{{ $errors->first('fname') }}</p>
+        @endif
     </div>
-</div>
-@endif
+
+    <div>
+        <label for="lname">Last Name</label>
+        <input type="text" name="lname" id="lname" placeholder="Last Name" />
+        @if ($errors->has('lname'))
+            <p class="error">{{ $errors->first('lname') }}</p>
+        @endif
+    </div>
+
+    <div>
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" placeholder="Address" />
+        @if ($errors->has('address'))
+            <p class="error">{{ $errors->first('address') }}</p>
+        @endif
+    </div>
+
+    <div>
+        <label for="contact">Contact Number</label>
+        <input type="text" name="contact" id="contact" placeholder="Contact Number" />
+        @if ($errors->has('contact'))
+            <p class="error">{{ $errors->first('contact') }}</p>
+        @endif
+    </div>
+
+    <div>
+        <label for="mmail">Email</label>
+        <input type="text" name="mmail" id="mmail" placeholder="Email" />
+        @if ($errors->has('mmail'))
+            <p class="error">{{ $errors->first('mmail') }}</p>
+        @endif
+    </div>
+
+    <div>
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        @if ($errors->has('image'))
+            <p class="error">{{ $errors->first('image') }}</p>
+        @endif
+    </div>
 
    
-    <form method="post" action="{{ route('phone.store') }}">
-        @csrf
-        @method('post')
-        <div>
-            <label for="fname">First Name</label>
-            <input type="text" name="fname" id="fname" placeholder="First Name" />
-            <input type="text" name="lname" placeholder="Last Name" />
-        </div>
 
-        <div>
-            <label for="address">Address</label>
-            <input type="text" name="address" id="address" placeholder="Address" />
-        </div>
+    <div>
+        <input type="submit" value="Save Contact Person" />
+    </div>
+</form>
+<div id="alertContainer" style="text-align: center; margin-top: 10px;"></div>
 
-        <div>
-            <label for="contact">Contact Number</label>
-            <input type="text" name="contact" id="contact" placeholder="Contact Number" />
-        </div>
 
-        <div>
-            <label for="mmail">Email</label>
-            <input type="text" name="mmail" id="mmail" placeholder="Email" />
-        </div>
-        <div>
-            <input type="submit" value="Save Contact Person" />
-        </div>
-    </form>
+
+<style>
+    .error {
+        color: red;
+        font-size: 12px;
+    }
+</style>
 
     <div style="text-align: center; margin-top: 20px;">
         <a href="{{ route('phone.index') }}" style="text-decoration: none;">

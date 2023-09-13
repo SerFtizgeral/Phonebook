@@ -31,6 +31,14 @@ Route::get('/sort', [PhoneController::class, 'sort'])->name('phone.sort');
 
 
 
+Route::get('/view', [PhoneController::class, 'view'])->name('phone.view');
+Route::post('/import', [PhoneController::class, 'import'])->name('phone.import');
+
+
+Route::get('/export', [PhoneController::class, 'export'])->name('phone.export');
+
+
+
 
 
 

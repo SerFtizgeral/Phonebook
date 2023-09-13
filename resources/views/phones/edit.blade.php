@@ -52,44 +52,94 @@
     </style>
 </head>
 <body>
-    <h1>Add Contacts</h1>
-   
-    <form method="post" action="{{route('phone.update', ['phone'=> $phone])}}">
-        @csrf
-        @method('put')
-        <div>
-            <label for="fname">First Name</label>
-            <input type="text" name="fname" id="fname" placeholder="First Name" value="{{$phone->fname}}" />
-            <input type="text" name="lname" placeholder="Last Name" value="{{$phone->lname}}" />
-        </div>
+<h1>Update Contacts</h1>
 
-        <div>
-            <label for="address">Address</label>
-            <input type="text" name="address" id="address" placeholder="Address" value="{{$phone->address}}" />
-        </div>
+<form method="post" action="{{ route('phone.update', ['phone' => $phone]) }}" enctype="multipart/form-data">
+    @csrf
+    @csrf
+    @method('put')
+    <div>
+    <label for="fname">First Name</label>
+    <input type="text" name="fname" id="fname" placeholder="First Name" value="{{$phone->fname}}" />
+    @error('fname')
+    <span class="error">{{ $message }}</span>
+    @enderror
+</div>
 
-        <div>
-            <label for="contact">Contact Number</label>
-            <input type="text" name="contact" id="contact" placeholder="Contact Number"value="{{$phone->contact}}"  />
-        </div>
 
-        <div>
-            <label for="mmail">Email</label>
-            <input type="text" name="mmail" id="mmail" placeholder="Email" value="{{$phone->mmail}}" />
-        </div>
-        <div>
-            <input type="submit" value="Update Contact Person" />
-        </div>
-    </form>
+<div>
+    <label for="lname">Last Name</label>
+    <input type="text" name="lname" id="lname" placeholder="Last Name" value="{{$phone->lname}}" />
+    @error('lname')
+    <span class="error">{{ $message }}</span>
+    @enderror
+</div>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="{{ route('phone.index') }}" style="text-decoration: none;">
-            <button style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-size: 16px;">
-                Go to Contacts List
-            </button>
-        </a>
+<div>
+    <label for="address">Address</label>
+    <input type="text" name="address" id="address" placeholder="Address" value="{{$phone->address}}" />
+    @error('address')
+    <span class="error">{{ $message }}</span>
+    @enderror
+</div>
+
+<div>
+    <label for="contact">Contact Number</label>
+    <input type="text" name="contact" id="contact" placeholder="Contact Number" value="{{$phone->contact}}" />
+    @error('contact')
+    <span class="error">{{ $message }}</span>
+    @enderror
+</div>
+
+<div>
+    <label for="mmail">Email</label>
+    <input type="text" name="mmail" id="mmail" placeholder="Email" value="{{$phone->mmail}}" />
+    @error('mmail')
+    <span class="error">{{ $message }}</span>
+    @enderror
+</div>
+<div>
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image" accept="image/*">
+    @if ($errors->has('image'))
+        <p class="error">{{ $errors->first('image') }}</p>
+    @endif
+    @if ($phone->image_path)
+        <p>Current Image:</p>
+        <img src="{{ asset('storage/images' . $phone->image_path) }}" alt="Current Image" style="max-width: 300px;">
+    @else
+        <p>No current image available.</p>
+    @endif
+</div>
+
+
+
+
+
+<style>
+    .error {
+        color: red;
+        font-size: 12px;
+    }
+</style>
+
+
+
+
+    <div>
+        <input type="submit" value="Update Contact Person" />
     </div>
+</form>
 
+
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ route('phone.index') }}" style="text-decoration: none;">
+        <button style="padding: 10px 20px; background-color: #333; color: #fff; border: none; border-radius: 3px; cursor: pointer; font-size: 16px;">
+            Go to Contacts List
+        </button>
+    </a>
+</div>
     
 </body>
 </html>
